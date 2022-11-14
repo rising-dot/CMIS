@@ -1,0 +1,14 @@
+C:\Users\soph1\Desktop\CMIS_CODE\cmis_app\cmis_app\bin\Debug\cmis_app.exe.config
+C:\Users\soph1\Desktop\CMIS_CODE\cmis_app\cmis_app\bin\Debug\cmis_app.exe
+C:\Users\soph1\Desktop\CMIS_CODE\cmis_app\cmis_app\bin\Debug\cmis_app.pdb
+C:\Users\soph1\Desktop\CMIS_CODE\cmis_app\cmis_app\obj\Debug\cmis_app.csproj.AssemblyReference.cache
+C:\Users\soph1\Desktop\CMIS_CODE\cmis_app\cmis_app\obj\Debug\cmis_app.csproj.CoreCompileInputs.cache
+C:\Users\soph1\Desktop\CMIS_CODE\cmis_app\cmis_app\obj\Debug\cmis_app.exe
+C:\Users\soph1\Desktop\CMIS_CODE\cmis_app\cmis_app\obj\Debug\cmis_app.pdb
+C:\Users\Rising\Desktop\CMIS_CODE\cmis_app\cmis_app\bin\Debug\cmis_app.exe.config
+C:\Users\Rising\Desktop\CMIS_CODE\cmis_app\cmis_app\bin\Debug\cmis_app.exe
+C:\Users\Rising\Desktop\CMIS_CODE\cmis_app\cmis_app\bin\Debug\cmis_app.pdb
+C:\Users\Rising\Desktop\CMIS_CODE\cmis_app\cmis_app\obj\Debug\cmis_app.csproj.AssemblyReference.cache
+C:\Users\Rising\Desktop\CMIS_CODE\cmis_app\cmis_app\obj\Debug\cmis_app.csproj.CoreCompileInputs.cache
+C:\Users\Rising\Desktop\CMIS_CODE\cmis_app\cmis_app\obj\Debug\cmis_app.exe
+C:\Users\Rising\Desktop\CMIS_CODE\cmis_app\cmis_app\obj\Debug\cmis_app.pdb
