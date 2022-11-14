@@ -3,7 +3,7 @@
 Create in Visual studio with C#
 
 # Program Functionality
-Create user by phone number:
+Create user by phone number: \n
 Check if phone number exist in checkUser.txt file, if not fill out name, adresse, post numbe, city and email. Then save it all in the database.
 
 find user:
