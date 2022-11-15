@@ -20,7 +20,7 @@ Check if email has @ if not display error massage
 
 
 ## How to use
-Remmber to change the path to your own path in your PC.<br /><br /> string getPath = @"C:\cmis_data\checkUser.txt"; 
+Remmber to change the path to your own path in your PC.<br /><br /> string getPath = @"C:\cmis_data\database.txt"; 
 
 
 
