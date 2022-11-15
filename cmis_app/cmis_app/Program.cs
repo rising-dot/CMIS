@@ -8,517 +8,495 @@ using System.IO;
 
 namespace cmis_app
 {
-    class Program
+class Program
+{
+    static void Main(string[] args)
     {
-        static void Main(string[] args)
+        //Color
+        Console.BackgroundColor = ConsoleColor.DarkCyan;
+        Console.Clear();
+        Console.ForegroundColor = ConsoleColor.Black;
+
+        //Start Menu
+        menu();
+    }
+
+
+    //**************************************************
+    // Main Menu Welcome Page
+    //**************************************************
+    static void menu()
+    {
+
+
+        writeMassage("  .oooooo.   ooo        ooooo  ooooo   .oooooo..o ", 0, 4);
+        writeMassage(" d8P'  `Y8b  `88.       .888'  `888'  d8P'    `Y8 ", 0, 5);
+        writeMassage("888           888b     d'888    888   Y88bo.      ", 0, 6);
+        writeMassage("888           8 Y88. .P  888    888    `Y8888o.   ", 0, 7);
+        writeMassage("888           8  `888'   888    888       `Y88b   ", 0, 8);
+        writeMassage("`88b    ooo   8    Y     888    888   oo     .d8P ", 0, 9);
+        writeMassage(" `Y8bood8P'  o8o        o888o  o888o  88888888P'  ", 0, 10);
+        
+        writeMassage("Nyhedsbrev", 0, 13);
+
+        displaySwitch();
+        
+
+    }
+
+
+    //**************************************************
+    // Create new user - function
+    //**************************************************
+    static void createUser()
+    {
+
+        string telefon = "";
+        string navn = "";
+        string efternavn = "";
+        string adresse = "";   
+        string postnr = "";
+        string by = "";
+        string email = "";     
+
+        
+
+        //**************************************************
+        // Validate of phone number
+        //**************************************************
+        string msg = "";
+        bool endPhone = true;
+
+        Console.Clear();
+        writeMassage("<<<  Carsten Mørch Information System - Gæste-registrering v 1.0  >>>", 0, 0);
+        writeMassage("Indtast og tryk enter", 0, 3);
+        writeMassage("Telefon nr   :", 0, 5);
+        writeMassage("Navn         :", 0, 6);
+        writeMassage("Efternavn    :", 0, 7);
+        writeMassage("Adresse      :", 0, 8);
+        writeMassage("Postnr       :", 0, 9);
+        writeMassage("By           :", 0, 10);
+        writeMassage("Email        :", 0, 11);
+        writeMassage("[*] Tilbage til menu", 0, 21);
+
+
+        do
         {
 
-            //Start Menu
+            writeMassage("Telefon nr   :", 0, 5);
+            writeMassage(msg, 0, 15);
+            
+            // get input from user
+            Console.SetCursorPosition(23, 5);
+            string phoneNumb = Console.ReadLine();   
+
+            //exit back to menu
+            exitToMenu(phoneNumb);
+        
+            
+            // Check if input is a Int and Check if the phone number is 8 length
+            int value;
+            if (int.TryParse(phoneNumb, out value) == true && phoneNumb.Length == 8)
+            {
+                
+                // check if input phone number is in database.txt
+                string getPath = @"C:\cmis_data\database.txt";
+                string data = File.ReadAllText(getPath);
+                    
+
+                if(data.Contains(phoneNumb))
+                {
+
+                    // If in database.txt display message and start all over
+                    msg = "***Telefonnummeret er allerede i brug. Vælg et nyt nummer***";
+                    removeMsg(5);
+                }
+                else
+                {
+
+                    // else save the phone number in our telefon variable and stop the loop
+                    writeMassage("Telefon nr   : "+ value + "    OK! Kan oprettes", 0, 5);
+                    telefon = phoneNumb;
+
+                    endPhone = false;
+                }
+
+            }
+            else
+            {
+                // display message and start all over
+                msg = "***Telefonnummeret skal være 8 cifre langt og må ikke indholde bogstaver***";
+                removeMsg(5);
+            }
+
+
+
+        } while (endPhone);
+
+
+
+        // remove the msg text if there was any misstake
+        removeMsg(15);
+
+        // set CursorPosition and get input from user and save it to navn variable 
+        navn = checkIfEmpty(6);
+        exitToMenu(navn);
+
+        // set CursorPosition and get input from user and save it to navn variable 
+        efternavn = checkIfEmpty(7);
+        exitToMenu(efternavn);
+        
+        // set CursorPosition and get input from user and save it to address variable
+        adresse = checkIfEmpty(8);
+        exitToMenu(adresse);
+
+
+
+        //**************************************************
+        // Validate of post number
+        //**************************************************
+        string msg_post = "";
+        bool endPost = true;
+
+        do
+        {
+
+            writeMassage("Postnr       : ", 0, 9);
+            writeMassage(msg_post, 0, 15);
+
+            // get input from user1
+            Console.SetCursorPosition(23, 9);
+            string postNumb = Console.ReadLine();
+            exitToMenu(postNumb);
+
+            // Check if input is a Int and check if the post number is 4 length
+            int value;
+            if (int.TryParse(postNumb, out value) == true && postNumb.Length == 4)
+            {
+
+                // save the post number in our postnr variable and stop the loop
+                postnr = postNumb;
+                endPost = false;
+
+            }
+            else
+            {
+                // display message and start all over
+                msg_post = "******Post nr skal være 4 karakterer langt og må ikke indholde bogstaver***";
+                removeMsg(9);
+            }
+
+
+        } while (endPost);
+
+
+        // remove the msg if there was any misstake
+        removeMsg(15); 
+
+        // set CursorPosition and get input from user and save it to by variable
+        by = checkIfEmpty(10);
+        exitToMenu(by);
+
+
+        
+        //**************************************************
+        // Validate of Email
+        //**************************************************
+    
+        string msg_email = "";
+        bool endEmail = true;
+
+        do
+        {
+
+            writeMassage("Email        :", 0, 11);
+            writeMassage(msg_email, 0, 15);
+            
+
+            // get input from user
+            Console.SetCursorPosition(23, 11);
+            string emailName = Console.ReadLine();
+            exitToMenu(emailName);
+            
+            // Check for @ in email
+            if(emailName.Contains("@"))
+            {
+                // If @ is in email stop the loop and save the email in email variable
+                email = emailName;
+                endEmail = false;
+            }
+            else
+            {
+                // display message and start all over
+                msg_email = "***Du har ikke @ i din email***";
+                removeMsg(11);
+            }
+
+        } while (endEmail);                  
+            
+
+
+        // remove the msg if there was any misstake
+        removeMsg(15);
+
+
+        // Set Cursor Position and display message
+        writeMassage("Oplysninger gemmes .....", 0, 16);
+
+        
+        // save all info in database.txt
+        string pathDatabase = @"C:\cmis_data\database.txt";  
+        string createDatabase = telefon+", "+ navn+" "+efternavn+", "+ adresse+", "+ postnr+", "+ by+", "+ email+"\n";
+        File.AppendAllText(pathDatabase, createDatabase);
+
+
+        // display mini menu 
+        displaySwitch();
+
+    
+
+    }
+
+
+    //**************************************************
+    // Find a user
+    //**************************************************
+    static void findUser()
+    {
+        
+        writeMassage("<<<  Carsten Mørch Information System - Gæste-registrering v 1.0  >>>", 0, 0);
+        writeMassage("Indstast et telefonnummer for at finde en bruger.", 0, 3);
+        writeMassage("[*] Tilbage til menu", 0, 21);
+
+
+        bool fundUser = false;
+
+        // Get user by number
+        Console.SetCursorPosition(8, 5);
+        string getInput = Console.ReadLine();
+        exitToMenu(getInput);
+        
+        
+        // get all user from database.txt
+        string getPath = @"C:\cmis_data\database.txt";    
+        string[] data = File.ReadAllLines(getPath);
+        
+
+        // loop it 
+        foreach (var item in data)
+        {
+            // if we have a match 
+            if (getInput == item.Substring(0, 8))
+            {
+                // display massage and stop the loop
+                writeMassage("Resultat: " + item, 0, 7);
+                fundUser = true;
+            }
+        }
+      
+        
+        // display massage if we did not find the user
+        if (fundUser == false)
+        {
+            
+            writeMassage("Brugeren findes ikke", 0, 7);
+        }
+
+        displaySwitch();
+        
+    }
+
+
+
+    //**************************************************
+    //Show all User
+    //**************************************************
+    static void showAllUser()
+    {
+
+        Console.WriteLine("Password:");
+        string password = Console.ReadLine();
+        Console.Clear();
+        
+
+        if (password == "admin")
+        {
+
+            // get all user from database.txt
+            string getPath = @"C:\cmis_data\database.txt";   
+            string[] data = File.ReadAllLines(getPath);
+
+            writeMassage("Der er i alt "+ data.Length +" linier i datafilen", 0, 0);
+            writeMassage("Vise mere - Tryk en tast !", 0, 22);
+
+
+            // loop it
+            for(int i = 0; i < data.Length; i++)
+            {
+                
+                //display only 15 at a time
+                if ((i % 15) == 0)
+                {
+
+                    Console.ReadKey();
+                    Console.Clear();
+                    writeMassage("Der er i alt "+(data.Length-i) +" linier i datafilen", 0, 0);
+                    writeMassage("Vise mere - Tryk en tast !", 0, 22);
+                    writeMassage("Indhold af databasen", 0, 3);
+
+                    
+                    Console.WriteLine("".PadLeft(8,' ') +data[i]);
+                }
+                else //display the rest
+                {
+                    
+                    Console.WriteLine("".PadLeft(8,' ') +data[i]);
+                }
+            }
+
+
+            // Set Cursor Position and display message and exit app
+            writeMassage("Ikke mere at vise - Tryk en tast for at gå tilbage til menu!", 0, 22);
+
+            Console.ReadKey();
+            Console.Clear();
+            menu();
+
+
+        }
+        else
+        {
+
             menu();
         }
 
 
-        //**************************************************
-        // Main Menu Welcome Page
-        //**************************************************
-        static void menu()
+    }
+
+
+    static void displaySwitch()
+    {
+
+        // display menu
+        writeMassage("[O] Opret    [F] Find    [Q] Afslut", 0, 22);
+        Console.WriteLine("\n");
+        Console.Write("".PadLeft(8,' ') +"Vælg funktion : ");
+
+    
+        // get value of 1 char
+        string tast = Console.ReadLine().ToLower();
+
+        // input the 1 char into the switch
+        switch (tast)
         {
 
+            case "o":
+                Console.Clear();
+                createUser();
+                break;
+            case "f":
+                Console.Clear();
+                findUser();
+                break;
+            case "show all":
+                Console.Clear();
+                showAllUser();
+                break;
+            case "q":
+                Console.Clear();
+                exitApp();
+                break;
+            default:
+                Console.Clear();
+                err();
+                break;
+        }       
 
-            Console.WriteLine("     <<<  Carsten Mørch Information System - Gæste-registrering v 1.0  >>>");
-            Console.WriteLine("\n\n\n\n");
-            Console.WriteLine("     Telefon nr   :");
-            Console.WriteLine("     Navn         :");
-            Console.WriteLine("     Efternavn    :");
-            Console.WriteLine("     Adresse      :");
-            Console.WriteLine("     Postnr       :");
-            Console.WriteLine("     By           :");
-            Console.WriteLine("     Email        :");
+    }
 
-            Console.WriteLine("\n\n\n\n\n\n\n");
-            displaySwitch();
-           
+    // check if input is empty
+    public static string checkIfEmpty(int x)
+    {
 
+        bool notEmpty = true;
+        string txtValue = "";
+
+        do
+        {
+
+            Console.SetCursorPosition(23, x);
+            string inputTxt = Console.ReadLine();
+
+
+            if (!String.IsNullOrEmpty(inputTxt))
+            {
+
+                removeMsg(15);
+                txtValue = inputTxt;
+                notEmpty = false;
+            }
+            else
+            {
+                
+                writeMassage("***Tekstfelt kan ikke være tom***", 0, 15);
+            }
+
+
+        } while (notEmpty);
+
+
+        return txtValue;
+
+    }
+
+
+
+
+    static void removeMsg(int pos)
+    {
+        // remove error massage
+        Console.SetCursorPosition(0, pos);
+        Console.Write(new string(' ', Console.WindowWidth)); 
+    }
+
+    static void err()
+    {
+        // if you pick a worng letter at the menu reset the menu by calling the function again
+        menu();
+
+    }
+
+    static void exitToMenu(string exit)
+    {
+                        
+        if (exit == "*")
+        {
+            Console.Clear();
+            menu();
         }
 
 
-        //**************************************************
-        // Create new user - function
-        //**************************************************
-        static void createUser()
-        {
-
-            string telefon = "";
-            string navn = "";
-            string efternavn = "";
-            string adresse = "";   
-            string postnr = "";
-            string by = "";
-            string email = "";     
-
-            
-
-            //**************************************************
-            // Validate of phone number
-            //**************************************************
-            string msg = "";
-            bool endPhone = true;
-
-            do
-	        {
-
-                Console.Clear();
-                Console.WriteLine("     <<<  Carsten Mørch Information System - Gæste-registrering v 1.0  >>>");
-                Console.WriteLine("\n\n");
-                Console.WriteLine("     Indtast og tryk enter\n");
-
-                
-                Console.WriteLine("     Telefon nr   : ");
-                Console.WriteLine("     Navn         : ");
-                Console.WriteLine("     Efternavn    :");
-                Console.WriteLine("     Adresse      : ");
-                Console.WriteLine("     Postnr       : ");
-                Console.WriteLine("     By           : ");
-                Console.WriteLine("     Email        : ");
-
-                Console.SetCursorPosition(0, 15);
-                Console.WriteLine(msg);
-                
-                
+    }
 
 
-                
-                // get input from user
-                Console.SetCursorPosition(20, 6);
-                string phoneNumb = Console.ReadLine();   
-               
-               
-                // Check if input is a Int and Check if the phone number is 8 length
-                int value;
-                if (int.TryParse(phoneNumb, out value) == true && phoneNumb.Length == 8)
-                {
-                    
-                        // check if input phone number is in database.txt
+    static void writeMassage(string text, int xPos, int yPos)
+    {
+        Console.SetCursorPosition(xPos, yPos);
+        Console.WriteLine("".PadLeft(8,' ') + text);
+    }
 
-                        string getPath = @"C:\cmis_data\checkUser.txt";
-                        //string getPath = @"C:\Users\Rising\Desktop\CMIS_CODE\data\checkUser.txt";      // <---------------------------- change to your own diretory
-                        string[] data = File.ReadAllLines(getPath);
-
-                        if(data.Contains(phoneNumb))
-                        {
-                            // If in database.txt display message and start all over
-                            msg = "     ***Telefonnummeret er allerede i brug. Vælg et nyt nummer***";
-                        }
-                        else
-                        {
-                            // else save the phone number in our telefon variable and stop the loop
-                            Console.SetCursorPosition(20, 6);
-                            Console.WriteLine("\r     Telefon nr   : "+ value + "    OK! Kan oprettes");
-                            telefon = phoneNumb;
-
-                            endPhone = false;
-                        }
-
-
-
-                }
-                else
-                {
-                    // display message and start all over
-                    msg = "     ***Telefonnummeret skal være 8 cifre langt og må ikke indholde bogstaver***";
-
-                }
-
-
-
-	        } while (endPhone);
-
+    
+    static void exitApp()
+    {
+        // exit App
+    }
 
 
     
 
-            // remove the msg text if there was any misstake
-            removeErrorMsg();
 
 
-            // set CursorPosition and get input from user and save it to navn variable 
-            navn = checkIfEmpty(7);
-
-            // set CursorPosition and get input from user and save it to navn variable 
-            efternavn = checkIfEmpty(8);
-
-            // set CursorPosition and get input from user and save it to address variable
-            adresse = checkIfEmpty(9);
-          
-
-
-
-            //**************************************************
-            // Validate of post number
-            //**************************************************
-            string msg_post = "";
-            bool endPost = true;
-
-            do
-	        {
-
-                Console.Clear();
-                Console.WriteLine("     <<<  Carsten Mørch Information System - Gæste-registrering v 1.0  >>>");
-                Console.WriteLine("\n\n\n\n");
-                Console.WriteLine("     Telefon nr   : "+ telefon);
-                Console.WriteLine("     Navn         : "+ navn);
-                Console.WriteLine("     Efternavn    : "+ efternavn);
-                Console.WriteLine("     Adresse      : "+ adresse);
-                Console.WriteLine("     Postnr       : ");
-                Console.WriteLine("     By           : ");
-                Console.WriteLine("     Email        : ");
-                
-                
-                Console.SetCursorPosition(0, 15);
-                Console.WriteLine(msg_post);
-
-                // get input from user
-                Console.SetCursorPosition(20, 10);
-                string postNumb = Console.ReadLine();   
-
-                // Check if input is a Int and check if the post number is 4 length
-                int value;
-                if (int.TryParse(postNumb, out value) == true && postNumb.Length == 4)
-                {
-
-                    // save the post number in our postnr variable and stop the loop
-                    postnr = postNumb;
-                    endPost = false;
-
-                }
-                else
-                {
-                    // display message and start all over
-                    msg_post = "     ******Post nr skal være 4 karakterer langt og må ikke indholde bogstaver***";
-                }
-
-
-	        } while (endPost);
-
-
-
-
-            // remove the msg if there was any misstake
-            removeErrorMsg(); 
-
-            // set CursorPosition and get input from user and save it to by variable
-            by = checkIfEmpty(11);
-     
-
-
-          
-            //**************************************************
-            // Validate of Email
-            //**************************************************
-      
-            string msg_email = "";
-            bool endEmail = true;
-  
-            do
-	        {
-
-                Console.Clear();
-                Console.WriteLine("     <<<  Carsten Mørch Information System - Gæste-registrering v 1.0  >>>");
-                Console.WriteLine("\n\n\n\n");
-                
-                Console.WriteLine("     Telefon nr   : "+ telefon);
-                Console.WriteLine("     Navn         : "+ navn);
-                Console.WriteLine("     Efternavn    : "+ efternavn);
-                Console.WriteLine("     Adresse      : "+ adresse);
-                Console.WriteLine("     Postnr       : "+ postnr);
-                Console.WriteLine("     By           : "+ by);
-                Console.WriteLine("     Email        : ");
-               
-                
-                Console.SetCursorPosition(0, 15);
-                Console.WriteLine(msg_email);
-
-
-                // get input from user
-                Console.SetCursorPosition(20, 12);
-                string emailName = Console.ReadLine();
-                
-                // Check for @ in email
-                if(emailName.Contains("@"))
-                {
-                    // If @ is in email stop the loop and save the email in email variable
-                    email = emailName;
-                    endEmail = false;
-                }
-                else
-                {
-                    // display message and start all over
-                    msg_email = "     ***Du har ikke @ i din email***";
-                }
-
-	        } while (endEmail);                  
-              
-
-
-            // remove the msg if there was any misstake
-            removeErrorMsg();
-
-
-            // Set Cursor Position and display message
-            Console.SetCursorPosition(0, 16);
-            Console.WriteLine("     Oplysninger gemmes .....");
-
-           
-            //C:\cmis_data
-            // save all info in database.txt
-            string pathDatabase = @"C:\cmis_data\database.txt";  // <---------------------------- change to your own diretory
-            string createDatabase = telefon+", "+ navn+" "+efternavn+", "+ adresse+", "+ postnr+", "+ by+", "+ email+"\n";
-            File.AppendAllText(pathDatabase, createDatabase);
-
-            // save only phone number in checkUser.txt
-            string pathCheckUser = @"C:\cmis_data\checkUser.txt"; // <---------------------------- change to your own diretory
-            string createCheckUser = telefon+"\n";
-            File.AppendAllText(pathCheckUser, createCheckUser);
-            
-
-            
-
-
-            // display menu 
-            Console.WriteLine("\n\n\n");
-            displaySwitch();
-
-       
-
-        }
-        //**************************************************
-        // Find a user
-        //**************************************************
-        static void findUser()
-        {
-            
-            Console.WriteLine("     <<<  Carsten Mørch Information System - Gæste-registrering v 1.0  >>>");
-            Console.WriteLine("\n\n");
-            Console.WriteLine("     Indstast et telefonnummer for at finde en bruger.");
-            Console.SetCursorPosition(5, 5);
-
-            bool fundUser = false;
-
-            // Get user by number
-            string getInput = Console.ReadLine();
-            
-            
-            // get all user from database.txt
-            string getPath = @"C:\cmis_data\database.txt";    // <---------------------------- change to your own diretory
-            string[] data = File.ReadAllLines(getPath);
-           
-
-            // loop it 
-            foreach (var item in data)
-	        {
-                // if we have a match 
-                if (getInput == item.Substring(0, 8))
-	            {
-                    // display massage and stop the loop
-                    Console.WriteLine("\n\n     Resultat: " + item);
-                    fundUser = true;
-                }
-	        }
-
-
-           
-            // display massage if we did not find the user
-            if (fundUser == false)
-	        {
-                Console.WriteLine("\n\n     Brugeren findes ikke");
-	        }
-
-            Console.WriteLine("\n\n\n\n\n\n\n\n\n\n\n");
-            displaySwitch();
-          
-
-
-        }
-
-
-        //**************************************************
-        //Show all User
-        //**************************************************
-        static void showAllUser()
-        {
-
-            
-            string password = Console.ReadLine();
-
-          
-
-            if (password == "admin")
-	        {
-
-                // get all user from database.txt
-                string getPath = @"C:\cmis_data\database.txt";    // <---------------------------- change to your own diretory
-                string[] data = File.ReadAllLines(getPath);
-
-                Console.WriteLine("     Der er i alt "+ data.Length +" linier i datafilen");
-                Console.WriteLine("     Vise mere - Tryk en tast !");
-
-                // loop it
-                for(int i = 0; i < data.Length; i++)
-                {
-                    //display only 15 at a time
-                    if ((i % 15) == 0)
-                    {
-
-                        Console.ReadKey();
-                        Console.Clear();
-                        Console.WriteLine("     Der er i alt "+(data.Length-i) +" linier i datafilen\n\n");
-                        Console.WriteLine("     Indhold af databasen");
-                        Console.WriteLine("     "+data[i]);
-
-                    }
-                    else
-                    {
-                     
-                        Console.WriteLine("     "+data[i]);
-                    }
-                }
-
-
-                // Set Cursor Position and display message and exit app
-                Console.SetCursorPosition(0, 22);
-                Console.WriteLine("     Ikke mere at vise - Tryk en tast for at gå tilbage til menu!");
-                Console.ReadKey();
-                Console.Clear();
-                menu();
-
-
-	        }
-            else
-	        {
-
-                menu();
-	        }
-
-
-
-
-
-
-
-
-        }
-
-
-        static void displaySwitch()
-        {
-            // display menu
-            
-            Console.WriteLine("     [O] Opret    [F] Find    [Q] Afslut :");
-            Console.WriteLine("\n");
-            Console.Write("     Vælg function : ");
-
-       
-            // get value of 1 char
-            string tast = Console.ReadLine().ToLower();
-
-            // input the 1 char into the switch
-            switch (tast)
-            {
-
-                case "o":
-                    Console.Clear();
-                    createUser();
-                    break;
-                case "f":
-                    Console.Clear();
-                    findUser();
-                    break;
-                case "show all":
-                    Console.Clear();
-                    showAllUser();
-                    break;
-                case "q":
-                    Console.Clear();
-                    exitApp();
-                    break;
-                default:
-                    Console.Clear();
-                    err();
-                    break;
-            }       
-
-        }
-
-
-         public static string checkIfEmpty(int x)
-        {
-
-            bool notEmpty = true;
-            string txtValue = "";
-
-            do
-	        {
-
-                Console.SetCursorPosition(20, x);
-                string inputTxt = Console.ReadLine();
-
-
-                if (!String.IsNullOrEmpty(inputTxt))
-	            {
-
-                    removeErrorMsg();
-                    txtValue = inputTxt;
-                    notEmpty = false;
-                }
-                else
-                {
-                    Console.SetCursorPosition(0, 15);
-                    Console.WriteLine("     ***Tekstfelt kan ikke være tom***");
-                }
-
-
-	        } while (notEmpty);
-
-
-            return txtValue;
-
-        }
-
-
-
-
-
-
-
-
-        static void removeErrorMsg()
-        {
-            // remove error massage
-            Console.SetCursorPosition(0, 15);
-            Console.Write(new string(' ', Console.WindowWidth)); 
-        }
-
-        static void err()
-        {
-            // if you pick a worng letter at the menu reset the menu by calling the function again
-            menu();
-
-        }
-
-
-
-      
-        static void exitApp()
-        {
-            // exit App
-        }
-
-
-
-
-
-
-    }
+}
 }
 
 
