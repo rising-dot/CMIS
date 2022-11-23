@@ -17,6 +17,10 @@ class Program
         Console.Clear();
         Console.ForegroundColor = ConsoleColor.Black;
 
+
+        // create folder if not exist --- C:\cmis_data\database.txt
+        createFolder(); 
+
         //Start Menu
         menu();
     }
@@ -212,7 +216,6 @@ class Program
             writeMassage("Email        :", 0, 11);
             writeMassage(msg_email, 0, 15);
             
-
             // get input from user
             Console.SetCursorPosition(23, 11);
             string emailName = Console.ReadLine();
@@ -235,10 +238,8 @@ class Program
         } while (endEmail);                  
             
 
-
         // remove the msg if there was any misstake
         removeMsg(15);
-
 
         // Set Cursor Position and display message
         writeMassage("Oplysninger gemmes .....", 0, 16);
@@ -253,9 +254,8 @@ class Program
         // display mini menu 
         displaySwitch();
 
-    
-
     }
+
 
 
     //**************************************************
@@ -282,17 +282,28 @@ class Program
         string[] data = File.ReadAllLines(getPath);
         
 
-        // loop it 
-        foreach (var item in data)
-        {
-            // if we have a match 
-            if (getInput == item.Substring(0, 8))
+        if (data == null || data.Length == 0)
+	    {
+    
+            Console.WriteLine("array is empty");
+
+            // loop it
+            /*
+            foreach (var item in data)
             {
-                // display massage and stop the loop
-                writeMassage("Resultat: " + item, 0, 7);
-                fundUser = true;
+          
+                // if we have a match 
+                if (getInput == item.Substring(0, 8))
+                {
+                    // display massage and stop the loop
+                    writeMassage("Resultat: " + item, 0, 7);
+                    fundUser = true;
+                }
             }
-        }
+            */
+	    }
+
+
       
         
         // display massage if we did not find the user
@@ -344,8 +355,8 @@ class Program
                     writeMassage("Vise mere - Tryk en tast !", 0, 22);
                     writeMassage("Indhold af databasen", 0, 3);
 
-                    
                     Console.WriteLine("".PadLeft(8,' ') +data[i]);
+
                 }
                 else //display the rest
                 {
@@ -357,7 +368,6 @@ class Program
 
             // Set Cursor Position and display message and exit app
             writeMassage("Ikke mere at vise - Tryk en tast for at gå tilbage til menu!", 0, 22);
-
             Console.ReadKey();
             Console.Clear();
             menu();
@@ -423,11 +433,11 @@ class Program
 
         do
         {
-
+            // set position and get input from user
             Console.SetCursorPosition(23, x);
             string inputTxt = Console.ReadLine();
 
-
+            // if not empty set text and stop loop
             if (!String.IsNullOrEmpty(inputTxt))
             {
 
@@ -451,7 +461,7 @@ class Program
 
 
 
-
+    // remove text to reset the text
     static void removeMsg(int pos)
     {
         // remove error massage
@@ -459,6 +469,7 @@ class Program
         Console.Write(new string(' ', Console.WindowWidth)); 
     }
 
+    // if user misstype input go back to menu
     static void err()
     {
         // if you pick a worng letter at the menu reset the menu by calling the function again
@@ -466,19 +477,17 @@ class Program
 
     }
 
+    // exit function to go back to the menu
     static void exitToMenu(string exit)
     {
-                        
         if (exit == "*")
         {
             Console.Clear();
             menu();
         }
-
-
     }
 
-
+    // write function to set the position of the text
     static void writeMassage(string text, int xPos, int yPos)
     {
         Console.SetCursorPosition(xPos, yPos);
@@ -492,7 +501,29 @@ class Program
     }
 
 
-    
+    static void createFolder()
+    {
+        
+        string folderName = @"C:\cmis_data";
+
+        // If directory does not exist, create it
+        if (!Directory.Exists(folderName)) {
+            
+            // create folder
+            Directory.CreateDirectory(folderName);
+
+            // create file
+            File.Create(@"C:\cmis_data\database.txt").Close();
+
+        }
+       
+    }
+
+
+
+
+       
+
 
 
 
