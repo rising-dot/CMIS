@@ -19,8 +19,7 @@ Check if post number is a integer and is 4 in length, if not display error massa
 Check if email has @ if not display error massage
 
 
-## How to use
-Remmber to change the path to your own path in your PC.<br /><br /> string getPath = @"C:\cmis_data\database.txt"; 
+
 
 
 
