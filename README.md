@@ -4,7 +4,7 @@ Create in Visual studio with C#
 
 # Program Functionality
 Create user by phone number: <br />
-Check if phone number exist in checkUser.txt file, if not fill out name, adresse, post numbe, city and email. Then save it all in the database.text file.
+Check if phone number exist in database.txt file, if not fill out name, adresse, post numbe, city and email. Then save it all in the database.text file.
 
 Find user:<br />
 Input a phone number to find a user if user is in the database display it if not display massage not fund.
